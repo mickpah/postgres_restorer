@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/dbup_scripts/
+/dbup_scripts/
+/test_data_scripts/
