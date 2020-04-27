@@ -1,4 +1,6 @@
 import os
+from typing import Union, List, Dict
+
 from psycopg2 import connect, Error
 from psycopg2.extras import DictCursor
 from postgres_restorer._errors import PostgresRestorerError
@@ -102,7 +104,16 @@ class PostgresRestorer:
         except Error as error:
             raise PostgresRestorerError(f'Opening connection failed!', error.__dict__)
 
-    def fetch(self, query: str, params: dict, first: bool = False):
+    def fetch(self, query: str, params: dict = None, first: bool = False) -> Union[Dict, List[Dict]]:
+        """
+        Fetch data from currently tested database.
+        :param query: 'SELECT' query
+        :param params: values for query parametrization passed as dictionary.
+        :param first: If true only first result will be fetched.
+            All results fetched by default.
+        :return: Dictionary or list of dictionaries containing query result.
+        :raises PostgresRestorerError:
+        """
         try:
             self._open_connection(self._test_db_name)
             self._cursor.execute(query, params)
@@ -110,13 +121,19 @@ class PostgresRestorer:
             if first:
                 return dict(self._cursor.fetchone())
 
-            return dict(self._cursor.fetchall())
+            return [dict(row) for row in self._cursor.fetchall()]
         except Error as error:
             raise PostgresRestorerError(f'Error during executing query:\n{query}!', error.__dict__)
         finally:
             self._close_connection()
 
     def execute(self, query: str, params: dict = None):
+        """
+        Execute query on currently tested database,
+        without returning any values.
+        :param query: 'SELECT' query
+        :param params: values for query parametrization passed as dictionary.
+        """
         try:
             self._open_connection(self._test_db_name)
             self._cursor.execute(query, params)
@@ -126,6 +143,15 @@ class PostgresRestorer:
             self._close_connection()
 
     def setup(self):
+        """
+        Method that creates schemas in test database and fills them with data.
+        First dbup script must have logic that drops and recreates all schemas
+        used in database.
+        Example:
+        'DROP SCHEMA IF EXISTS public CASCADE;
+        CREATE SCHEMA public;'
+        This method should be called before each test.
+        """
         try:
             self._build_schema_query()
             self.execute(self._schema_script)
@@ -137,6 +163,11 @@ class PostgresRestorer:
             self._close_connection()
 
     def setup_once(self):
+        """
+        Method that creates test database.
+        If test database already exists it will be dropped and recreated.
+        This method should be called once, before running tests.
+        """
         try:
             self._open_connection('postgres')
             self._cursor.execute(
@@ -152,6 +183,10 @@ class PostgresRestorer:
             self._close_connection()
 
     def teardown_once(self):
+        """
+        Method that drops test database.
+        This method should be called once, after all tests finished.
+        """
         try:
             self._open_connection('postgres')
             self._cursor.execute(
