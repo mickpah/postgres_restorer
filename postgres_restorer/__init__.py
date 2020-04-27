@@ -13,6 +13,37 @@ class PostgresRestorer:
         dbup_scripts_path: str,
         test_data_scripts_path: str
     ):
+        """
+        PostgresRestorer enables:
+            - Creating/dropping test database.
+            - Building appropriate schema.
+            - Filling schema with test data.
+            - Querying test database.
+
+        Interface methods:
+            - setup_once -> database creation
+            - teardown_once -> database dropping
+            - setup -> schema building/resetting,
+              filling tables with test data
+            - execute -> execute query on test database
+            - fetch -> fetch data from test database
+
+        :param server_connection_string: Connection string to postgres server
+            without database name (restorer assumes that default 'postgres' database exists).
+            Example: 'host=localhost user=test password=test'.
+
+        :param test_db_name: Restorer will create test database with this value as its name.
+
+        :param dbup_scripts_path: Path to folder with schema building scripts. Restorer expects
+            following directory structure: dbup_scripts_folder/subfolder/script, where
+            dbup_scripts_folder is location pointed by dbup_scripts_path, subfolders may mean
+            month/year or sprint/year for example, as long as they are easily sortable chronologically,
+            and scripts are schema building scripts (without database creation logic).
+
+        :param test_data_scripts_path: Path to folder containing table-filling scripts with test data.
+            Unlike 'dbup_scripts_path', 'test_data_scripts_path' has no subfolders, script files
+            are placed directly in location pointed by this parameter.
+        """
         self._server_connection_string = server_connection_string
         self._test_db_name = test_db_name
         self._connection = None
@@ -93,20 +124,6 @@ class PostgresRestorer:
             raise PostgresRestorerError(f'Error during executing query:\n{query}!', error.__dict__)
         finally:
             self._close_connection()
-
-    def commit(self):
-        try:
-            self._connection.commit()
-            self._close_connection()
-        except Error as error:
-            raise PostgresRestorerError(f'Commit failed!', error.__dict__)
-
-    def rollback(self):
-        try:
-            self._connection.rollback()
-            self._close_connection()
-        except Error as error:
-            raise PostgresRestorerError(f'Rollback failed!', error.__dict__)
 
     def setup(self):
         try:
