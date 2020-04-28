@@ -14,3 +14,4 @@ exclude_lines =
     def _build_test_query
     def _close_connection
     def _open_connection
+
