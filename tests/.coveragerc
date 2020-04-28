@@ -1,0 +1,16 @@
+[run]
+branch = True
+source =
+    postgres_restorer
+
+[report]
+# excluded methods are private methods,
+# they are implementation detail, not part of interface,
+# so they are not tested
+exclude_lines =
+    pragma: no cover
+
+    def _build_schema_query
+    def _build_test_query
+    def _close_connection
+    def _open_connection
