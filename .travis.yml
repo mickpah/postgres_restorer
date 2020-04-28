@@ -9,7 +9,7 @@ env:
 before_install:
   - pip install -r requirements.txt
 script:
-  - sh tests_running_script.sh
+  - sh tests/tests_running_script.sh
 services: postgresql
 after_success:
   - codecov

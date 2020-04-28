@@ -92,7 +92,12 @@ You can run tests for currently developed features by running:
 ```sh
 pytest test_postgres_restorer.py 
 ```
-Those tests have to be run from inside of *tests* folder since all paths to scripts are declared in relation to it.
+Those tests have to be run from inside of *tests* folder since all paths to scripts are declared in relation to it, or you can run **tests_running_script.sh** to achieve same effect.
+
+To run tests running script:
+```sh
+sh tests/tests_running_script.sh  
+```
 
 To run test coverage:
 ```sh
