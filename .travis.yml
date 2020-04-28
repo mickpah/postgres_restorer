@@ -1,8 +1,13 @@
 language: python
 python:
+  - "3.6"
+  - "3.7"
   - "3.8"
-install:
+before_install:
   - pip install -r requirements.txt
-script:
-  - sh tests/tests_running_script.sh
+  - chdir tests
+install:
+  - coverage run -m pytest test_postgres_restorer.py
 services: postgresql
+after_success:
+  - codecov
