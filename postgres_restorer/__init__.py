@@ -69,8 +69,10 @@ class PostgresRestorer:
             )
             for script in scripts:
                 file_path = os.path.join(self._dbup_scripts_path, folder, script)
+
                 with open(file_path, 'r') as file:
                     subscripts.append(file.read())
+
         self._schema_script = ''.join(subscripts)
 
     def _build_test_query(self) -> str:

@@ -1,7 +1,6 @@
 import pytest
 from psycopg2 import connect
 
-
 from postgres_restorer import PostgresRestorer
 from tests.test_queries import check_if_database_exists, drop_test_db, check_if_table_exist, \
     check_if_data_inserted_table_1, check_if_data_inserted_table_2, check_if_data_inserted_table_3, execute_test_insert, \
@@ -87,9 +86,9 @@ class Test_SetupOnce_WorksCorrectly_DatabaseCreated:
 class Test_TearDownOnce_WorksCorrectly_DatabaseDropped:
     def test_teardown_once(self, restorer: PostgresRestorer):
         # setup
-        conn = _connect('postgres')
-
         restorer.setup_once()
+
+        conn = _connect('postgres')
 
         with conn.cursor() as cursor:
             cursor.execute(check_if_database_exists, {'dbname': config['test_db_name']})
@@ -112,16 +111,15 @@ class Test_TearDownOnce_WorksCorrectly_DatabaseDropped:
 
 
 class Test_Setup_WorksCorrectly_SchemaCreatedAndFilledWithTestData:
-
     def test_setup(self, restorer: PostgresRestorer):
         # setup
-        conn = _connect('postgres')
-
         restorer.setup_once()
+
+        conn = _connect('postgres')
 
         with conn.cursor() as cursor:
             cursor.execute(check_if_database_exists, {'dbname': config['test_db_name']})
-            does_database_exists = cursor.fetchone()
+            does_database_exists = cursor.fetchone()[0]
 
         assert does_database_exists
 
