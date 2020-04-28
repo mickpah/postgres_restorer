@@ -3,11 +3,13 @@ python:
   - "3.6"
   - "3.7"
   - "3.8"
+env:
+  - CODECOV_TOKEN="658f9f59-b372-45f2-9d76-11583867ee19"
 before_install:
   - pip install -r requirements.txt
   - chdir tests
 install:
-  - coverage run -m pytest test_postgres_restorer.py
+  - pytest test_postgres_restorer.py
 services: postgresql
 after_success:
   - codecov
