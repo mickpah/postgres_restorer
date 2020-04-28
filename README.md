@@ -1,5 +1,8 @@
 # postgres_restorer
 > Simple, lightweight tool that manages test databases during integration tests.
+>
+[![Build Status](https://travis-ci.com/pyux/postgres_restorer.svg?branch=master)](https://travis-ci.com/pyux/postgres_restorer)
+
 
 
 **postgres_restorer** provides fast way of creating/dropping test
