@@ -4,10 +4,10 @@ python:
   - "3.7"
   - "3.8"
   - "3.8.2"
+env:
+  - CODECOV_TOKEN="658f9f59-b372-45f2-9d76-11583867ee19"
 before_install:
   - pip install -r requirements.txt
 script:
   - sh tests/tests_running_script.sh
 services: postgresql
-after_success:
-  - codecov --token "658f9f59-b372-45f2-9d76-11583867ee19"
