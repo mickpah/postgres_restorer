@@ -1,8 +1,8 @@
 # postgres_restorer
 > Simple, lightweight tool that manages test databases during integration tests.
 >
-[![Build Status](https://travis-ci.com/pyux/postgres_restorer.svg?branch=master)](https://travis-ci.com/pyux/postgres_restorer)
-
+[![Build Status](https://travis-ci.com/pyux/postgres_restorer.svg?branch=master)](https://travis-ci.com/pyux/postgres_restorer) [![codecov](https://codecov.io/gh/pyux/postgres_restorer/branch/master/graph/badge.svg)](https://codecov.io/gh/pyux/postgres_restorer)
+ [![GitHub release](https://img.shields.io/github/release/pyux/postgres_restorer)](https://GitHub.com/pyux/postgres_restorer/releases/)
 
 
 **postgres_restorer** provides fast way of creating/dropping test
