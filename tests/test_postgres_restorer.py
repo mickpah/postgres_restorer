@@ -7,7 +7,7 @@ from tests.test_queries import check_if_database_exists, drop_test_db, check_if_
     test_execute_insert_result, test_fetch_result
 
 config = {
-    'server_connection_string': 'host=localhost user=test1 password=test1 ',
+    'server_connection_string': 'host=localhost user=postgres password=postgres ',
     'test_db_name': 'test_database',
     'dbup_scripts_path': './dbup_scripts',
     'test_data_scripts_path': './test_data_scripts'
