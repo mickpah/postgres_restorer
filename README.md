@@ -8,8 +8,8 @@
 **postgres_restorer** provides fast way of creating/dropping test
  databases and resetting/creating schemas before each test. It also
  wraps **psycopg2** enabling querying created database during tests.
- One instance of PostgresRestorer encapsulates one test database,
- if you need to connect to multiple databases, create multiple PostgresRestorer instances, one per database.
+ One instance of PostgresRestorer encapsulates one database,
+ if you need to connect to multiple databases, create multiple PostgresRestorer instances, one per tested database.
 
 ## Installation
 
