@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-with open("README.md", 'r') as file:
+with open("README.rst", 'r') as file:
     long_description = file.read()
 
 setup(
@@ -10,7 +10,6 @@ setup(
     license='MIT',
     description='Simple, lightweight tool that manages postgres databases during integration tests.',
     long_description=long_description,
-    long_description_content_type="text/markdown",
     author='pyux',
     author_email='maciej.tomaszek@protonmail.com',
     url='https://github.com/pyux/postgres_restorer',
