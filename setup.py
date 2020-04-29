@@ -6,14 +6,14 @@ with open("README.rst", 'r') as file:
 setup(
     name='postgres_restorer',
     packages=['postgres_restorer'],
-    version='1.1.0',
+    version='1.1.1',
     license='MIT',
     description='Simple, lightweight tool that manages postgres databases during integration tests.',
     long_description=long_description,
     author='pyux',
     author_email='maciej.tomaszek@protonmail.com',
     url='https://github.com/pyux/postgres_restorer',
-    download_url='https://github.com/pyux/postgres_restorer/archive/1.1.0.tar.gz',
+    download_url='https://github.com/pyux/postgres_restorer/archive/1.1.1.tar.gz',
     keywords=['postgres', 'integration', 'tests', 'restoring', 'database'],
     install_requires=[
         'attrs',
