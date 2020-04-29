@@ -21,11 +21,12 @@ postgres_restorer
       :alt: GitHub release
 
 
-**postgres_restorer** provides fast way of creating/dropping test
- databases and resetting/creating schemas before each test. It also
- wraps **psycopg2** enabling querying created database during tests.
- One instance of PostgresRestorer encapsulates one database,
- if you need to connect to multiple databases, create multiple PostgresRestorer instances, one per tested database.
+**postgres_restorer**
+provides fast way of creating/dropping test
+databases and resetting/creating schemas before each test. It also
+wraps **psycopg2** enabling querying created database during tests.
+One instance of PostgresRestorer encapsulates one database,
+if you need to connect to multiple databases, create multiple PostgresRestorer instances, one per tested database.
 
 Installation
 ------------
@@ -83,7 +84,9 @@ Usage
       restorer.setup()
 
 
-* **dbup_scripts_path** - location of dbup folder (folder with schema creating sql scripts). Expected folder structure: **dbupscripts/folders/scripts** where folders split scripts into chronologically sortable packages. Names can follow different conventions, for example: **month.year**\ , or **sprint.year**\ , etc. **First dbup script should contain logic resetting all used in database schemas!** Example:
+* **dbup_scripts_path** - location of dbup folder (folder with schema creating sql scripts). Expected folder structure: **dbupscripts/folders/scripts** where folders split scripts into chronologically sortable packages. Names can follow different conventions, for example: **month.year**\ , or **sprint.year**\ , etc. **First dbup script should contain logic resetting all used in database schemas!**
+  Example:
+
   .. code-block:: sql
 
      DROP SCHEMA IF EXISTS public;
@@ -130,7 +133,7 @@ Install dependencies:
 
    pip install -r requirements.txt
 
-All interface method reside in PostgresRestorer object in *__init.py__* file.
+All interface method reside in PostgresRestorer object in *_postgres_restorer.py* file.
 
 You can run tests for currently developed features by running:
 
@@ -150,7 +153,7 @@ To run test coverage:
 
 .. code-block:: sh
 
-   coverage run -m pytest test_postgres_restorer.py
+    chdir tests && pytest --cov=./
 
 Release History
 ---------------
@@ -158,7 +161,15 @@ Release History
 
 * 1.0
 
-  * First version released
+    * First version released
+
+* 1.1.1
+
+    * Adding description to pypi package
+
+* 1.1.2
+
+    * Binary distribution
 
 License
 -------

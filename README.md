@@ -88,7 +88,7 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-All interface method reside in PostgresRestorer object in *\_\_init.py\_\_* file.
+All interface method reside in PostgresRestorer object in *_postgres_restorer.py* file.
 
 You can run tests for currently developed features by running:
 ```sh
@@ -103,14 +103,22 @@ sh tests/tests_running_script.sh
 
 To run test coverage:
 ```sh
-coverage run -m pytest test_postgres_restorer.py
+chdir tests && pytest --cov=./
 ```
 
 ## Release History
 
 * 1.0
-    * First version released
 
+  * First version released
+
+* 1.1.1
+
+    * Adding description to pypi package
+
+* 1.1.2
+
+    * Binary distribution
 
 ## License
 Distributed under the **MIT License** license. See ``LICENSE`` file for more information.
