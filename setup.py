@@ -6,7 +6,7 @@ setup(
     version='1.0',
     license='MIT',
     description='Simple, lightweight tool that manages postgres databases during integration tests.',
-    author='Maciej Tomaszek',
+    author='pyux',
     author_email='maciej.tomaszek@protonmail.com',
     url='https://github.com/pyux/postgres_restorer',
     download_url='https://github.com/pyux/postgres_restorer/archive/1.0.tar.gz',
@@ -38,7 +38,6 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.8.2',
+        'Programming Language :: Python :: 3.8'
     ],
 )
