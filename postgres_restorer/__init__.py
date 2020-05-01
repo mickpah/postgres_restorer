@@ -1,1 +1,0 @@
-from postgres_restorer._postgres_restorer import PostgresRestorer
