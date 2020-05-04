@@ -1,18 +1,31 @@
-from .conf import PG_Config
-from .query import Query
-from .test_suit import TestSuit
+from typing import Dict
+
+from .connectors.connector import Connector
+from .default_settings import DEFAULT_SETTINGS
 
 
 class PG_Restorer:
-    def __init__(self, config: PG_Config):
-        self._config = config
-        self.query = Query
-        self.test_suit = TestSuit
+    def __init__(self, config: Dict):
+        self._pg_config = DEFAULT_SETTINGS
+        self._pg_config.update(config)
 
-    # returns connection info
-    def __repr__(self):
+    def test(self):
+        return Connector(self.pg_config)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
         pass
 
+    # returns current settings
+    def __repr__(self):
+        return str(self.pg_config)
 
-def get_new_db(config: PG_Config) -> PG_Restorer:
-    return PG_Restorer(config)
+    @property
+    def pg_config(self):
+        return self._pg_config
+
+    @pg_config.setter
+    def pg_config(self, value):
+        self._pg_config = value

@@ -1,3 +1,1 @@
-from ._pg_restorer import \
-    PG_Config, \
-    get_new_db
+from ._pg_restorer import get_new_db, RestoreType, TestDataInsert, CursorType
