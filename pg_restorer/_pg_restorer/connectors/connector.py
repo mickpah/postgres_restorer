@@ -1,3 +1,4 @@
+from contextlib import contextmanager
 from typing import Dict
 from .pg_connection import PG_Connection
 
@@ -26,3 +27,15 @@ class Connector:
     @property
     def autocommit(self):
         return self.settings['autocommit']
+
+    @property
+    @contextmanager
+    def cursor(self):
+        with PG_Connection(
+                self.connection_string, self.cursor_type, self.autocommit
+        ) as connection:
+            with connection.cursor() as _cursor:
+                yield _cursor
+
+
+

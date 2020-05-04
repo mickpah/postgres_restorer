@@ -10,7 +10,6 @@ class PG_Connection(object):
         self.connection_string = connection_string
         self.cursor_type = cursor_type
         self.autocommit = autocommit
-        self._cursor = None
         self.connection = None
 
     def __repr__(self):
@@ -24,13 +23,11 @@ class PG_Connection(object):
             cursor_factory=cursor_strategy[self.cursor_type]
         )
         self.connection.autocommit = self.autocommit
-        return self
+
+        return self.connection
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        if not exc_type and self.autocommit:
-            self.connection.commit()
-            self.connection.close()
-        else:
+        if exc_type:
             self.connection.rollback()
             self.connection.close()
 
@@ -42,5 +39,8 @@ class PG_Connection(object):
                 'message': exc_val.pgerror,
                 'pg_code': exc_val.pgcode
             }
-
             raise PG_ConnectionError(traceback_details)
+
+        elif self.autocommit:
+            self.connection.commit()
+            self.connection.close()
