@@ -1,6 +1,5 @@
 from typing import Dict
-
-from .connectors.connector import Connector
+from pg_restorer._pg_restorer.test_suit.test_suit import TestSuit
 from .default_settings import DEFAULT_SETTINGS
 
 
@@ -8,9 +7,6 @@ class PG_Restorer:
     def __init__(self, config: Dict):
         self._pg_config = DEFAULT_SETTINGS
         self._pg_config.update(config)
-
-    def test(self):
-        return Connector(self.pg_config)
 
     def __enter__(self):
         return self
@@ -29,3 +25,7 @@ class PG_Restorer:
     @pg_config.setter
     def pg_config(self, value):
         self._pg_config = value
+
+    @property
+    def test_suit(self):
+        return TestSuit(self.pg_config)

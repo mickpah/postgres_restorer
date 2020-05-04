@@ -1,7 +1,7 @@
 # collection on functions used everywhere
 import os
+import subprocess
 from typing import List, Dict
-from psycopg2 import connect
 
 
 def flatten_list_of_lists(list_of_lists: List[List]):
@@ -29,3 +29,9 @@ def build_schema_from_dbup(scripts_path: str) -> str:
 def dict_to_str(dictionary: Dict, separator: str = '\n') -> str:
     string = separator.join([f'{k}: {v}' for k, v in dictionary.items()])
     return f'\n{string}'
+
+
+def run_command(command: List, env_vars: Dict):
+    my_env = os.environ
+    my_env.update(env_vars)
+    subprocess.Popen(command, env=env_vars)

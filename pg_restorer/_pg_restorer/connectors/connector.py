@@ -4,8 +4,9 @@ from .pg_connection import PG_Connection
 
 
 class Connector:
-    def __init__(self, settings: Dict):
+    def __init__(self, settings: Dict, current_db: str):
         self._settings = settings
+        self.current_db = current_db
 
     @property
     def settings(self):
@@ -17,8 +18,26 @@ class Connector:
 
     @property
     def connection_string(self):
-        return f"{self.settings['server_connection_string']} " \
-               f"dbname={self.settings['test_db_name']}"
+        conn_info = self.settings['connection_info']
+        return f"host='{conn_info['host']}' user='{conn_info['user']}' " \
+               f"password='{conn_info['password']}' dbname='{self.current_db}'"
+
+    @property
+    def restore_db(self):
+        return self.settings['test_db_name']
+
+    @property
+    def path_to_restore(self):
+        return self.settings['restore_path']
+
+    @property
+    def env_vars(self):
+        conn_info = self.settings['connection_info']
+        return {
+            'PGPASSWORD': conn_info['password'],
+            'PGHOST': conn_info['host'],
+            'PGUSER': conn_info['user']
+        }
 
     @property
     def cursor_type(self):
@@ -36,6 +55,3 @@ class Connector:
         ) as connection:
             with connection.cursor() as _cursor:
                 yield _cursor
-
-
-

@@ -4,7 +4,7 @@ from enum import Enum
 class RestoreType(Enum):
     DBUP_SCRIPTS = 1
     SINGLE_SCRIPT = 2
-    GZ_BACKUP = 3
+    TAR_BACKUP = 3
 
 
 class TestDataInsert(Enum):
@@ -16,4 +16,3 @@ class TestDataInsert(Enum):
 class CursorType(Enum):
     Default = 1
     DictCursor = 2
-
